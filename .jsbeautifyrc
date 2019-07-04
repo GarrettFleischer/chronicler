@@ -1,0 +1,10 @@
+{
+    "beautify.ignore": ["*/test.js", "**/spec/*", "**/test/**/*"],
+    "beautify.language": {
+        "js": {
+            "type": ["javascript", "json"],
+            "filename": [".jshintrc", ".jsbeautifyrc"]
+        }
+    },
+    "brace_style": "end-expand,preserve-inline"
+}
