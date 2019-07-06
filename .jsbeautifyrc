@@ -6,5 +6,6 @@
             "filename": [".jshintrc", ".jsbeautifyrc"]
         }
     },
-    "brace_style": "end-expand,preserve-inline"
+    "brace_style": "end-expand,preserve-inline",
+    "end_with_newline": true
 }

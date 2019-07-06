@@ -19,34 +19,34 @@ export const updateComponentData = (id, data) => Meteor.call(UPDATE, id, { data 
 export const removeComponent = (id) => Meteor.call(REMOVE, id);
 
 const dataSchema = new Schema({
-  // Text
-  text: {
-    type: String,
-    optional: true,
-  },
+    // Text
+    text: {
+        type: String,
+        optional: true,
+    },
 
-  // Set Action
-  variableId: {
-    type: String,
-    optional: true,
-  },
-  value: {
-    type: String,
-    optional: true,
-  },
-  valueIsVariable: {
-    type: Boolean,
-    optional: true,
-  },
+    // Set Action
+    variableId: {
+        type: String,
+        optional: true,
+    },
+    value: {
+        type: String,
+        optional: true,
+    },
+    valueIsVariable: {
+        type: Boolean,
+        optional: true,
+    },
 });
 
 export const ComponentSchema = new Schema({
-  owner: Id,
-  createdOn: Date,
-  type: String,
-  nodeId: Id,
-  order: Number,
-  data: dataSchema,
+    owner: Id,
+    createdOn: Date,
+    type: String,
+    nodeId: Id,
+    order: Number,
+    data: dataSchema,
 });
 
 

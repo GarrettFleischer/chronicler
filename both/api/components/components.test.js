@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
 import { Components, REMOVE, TEXT, UPDATE, SET } from './components';
 import "./methods"
+import { notAuthorized, noModify } from "../exceptions";
 
 if (Meteor.isServer) {
     describe('Components', () => {
@@ -48,7 +49,7 @@ if (Meteor.isServer) {
 
             it('cannot delete unowned component', () => {
                 // Run the method with `this` set to the fake invocation
-                assert.throws(() => remove.apply(invocation, [unownedComponentId]), 'not-authorized');
+                assert.throws(() => remove.apply(invocation, [unownedComponentId]), notAuthorized);
 
                 // Verify that the method does what we expected
                 assert.equal(Components.find().count(), 2);
@@ -83,7 +84,7 @@ if (Meteor.isServer) {
                 const newData = { value: "hello world" };
                 const expected = unownedComponentProps;
 
-                assert.throws(() => update.apply(invocation, [unownedComponentId, { data: newData }]), 'not-authorized');
+                assert.throws(() => update.apply(invocation, [unownedComponentId, { data: newData }]), notAuthorized);
                 const updatedComponent = Components.findOne({ _id: unownedComponentId });
 
                 // ensure only data changed
@@ -94,7 +95,7 @@ if (Meteor.isServer) {
                 const newType = TEXT
                 const expected = componentProps;
 
-                update.apply(invocation, [ownedComponentId, { type: newType }]);
+                assert.throws(() => update.apply(invocation, [ownedComponentId, { type: newType }]), noModify);
                 const updatedComponent = Components.findOne({ _id: ownedComponentId });
 
                 // ensure only only data changed

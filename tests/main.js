@@ -1,5 +1,5 @@
 import assert from "assert";
-import "../both/api/components/components.test";
+import "../both/api/tests";
 
 describe("chronicler", function() {
     it("package.json has correct name", async function() {
