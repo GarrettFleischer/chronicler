@@ -1,13 +1,9 @@
-import {
-    Meteor
-}
-from 'meteor/meteor';
+import { Meteor } from "meteor/meteor";
 
-import '../both/config';
+import "../both/config";
+import "../both/api";
 
-import './publications';
-import './security';
+import "./publications";
+import "./security";
 
-Meteor.startup(() => {
-
-});
+Meteor.startup(() => {});

@@ -1,23 +1,21 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { Meteor } from 'meteor/meteor';
-import { FlowRouter } from 'meteor/kadira:flow-router';
-import { withTracker } from 'meteor/react-meteor-data';
-import { Button } from '@material-ui/core';
-import { addProject, Projects } from '../../../both/api/projects/projects';
-import { DelayedButtonGrid } from '../DelayedButtonGrid';
-import { PaperPage } from './PaperPage';
-
+import PropTypes from "prop-types";
+import React from "react";
+import { Meteor } from "meteor/meteor";
+import { withTracker } from "meteor/react-meteor-data";
+import { Button } from "@material-ui/core";
+import { addProject, Projects } from "../../../both/api/projects/projects";
+import { DelayedButtonGrid } from "../DelayedButtonGrid";
+import { PaperPage } from "./PaperPage";
 
 const DashboardUI = ({ user, projects }) => {
-  const items = projects.map((project) => ({
+  const items = projects.map(project => ({
     id: project._id,
     text: project.name,
-    onClick: () => FlowRouter.go(`/project/${project._id}`),
+    onClick: () => {} // FlowRouter.go(`/project/${project._id}`),
   }));
 
   const createProject = () => {
-    addProject(`Project ${projects.length + 1}`, user.username || 'Anonymous');
+    addProject(`Project ${projects.length + 1}`, user.username || "Anonymous");
   };
 
   return (
@@ -34,20 +32,19 @@ const DashboardUI = ({ user, projects }) => {
   );
 };
 
-
 DashboardUI.propTypes = {
   user: PropTypes.object,
-  projects: PropTypes.array,
+  projects: PropTypes.array
 };
 
 DashboardUI.defaultProps = {
   user: null,
-  projects: [],
+  projects: []
 };
 
 const mapTrackerToProps = () => ({
   user: Meteor.user(),
-  projects: Projects.find().fetch(),
+  projects: Projects.find().fetch()
 });
 
 export const Dashboard = withTracker(mapTrackerToProps)(DashboardUI);

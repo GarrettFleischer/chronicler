@@ -1,8 +1,9 @@
-import { Meteor } from 'meteor/meteor';
-import { Scenes } from '../scenes/scenes';
-import { Variables } from '../variables/variables';
-import { Projects, INSERT, REMOVE, UPDATE } from './projects';
-
+import { Meteor } from "meteor/meteor";
+import { Scenes } from "../scenes/scenes";
+import { Variables } from "../variables/variables";
+import { Projects, INSERT, REMOVE, UPDATE } from "./projects";
+import { notAuthorized } from "../exceptions";
+import { json } from "graphlib";
 
 Projects.helpers({
   scenes() {
@@ -10,36 +11,43 @@ Projects.helpers({
   },
   variables() {
     return Variables.find({ projectId: this._id }).fetch();
-  },
+  }
 });
-
 
 Meteor.methods({
   [INSERT](name, author) {
-    if (!this.userId) throw new Meteor.Error('not-authorized');
-
-    return Projects.insert({
+    if (!this.userId) throw notAuthorized;
+    const project = Projects.insert({
       owner: this.userId,
       createdOn: Date.now(),
       name,
-      author,
+      author
     });
+    const insertedProject = Projects.findOne({ _id: project });
+    console.log(`inserting project:\n${JSON.stringify(insertedProject)}`);
+    return project;
   },
 
   [UPDATE](id, { name, author }) {
-    return Projects.update({ _id: id }, {
-      $set: {
-        name,
-        author,
-      },
-    });
+    const project = Projects.findOne({ _id: id });
+    if (this.userId !== project.owner) throw notAuthorized;
+    return Projects.update(
+      { _id: id },
+      {
+        $set: {
+          name,
+          author
+        }
+      }
+    );
   },
 
   [REMOVE](id) {
-    if (!this.userId) throw new Meteor.Error('not-authorized');
+    const project = Projects.findOne({ _id: id });
+    if (this.userId !== project.owner) throw notAuthorized;
 
     Projects.remove({ _id: id });
-  },
+  }
 });
 
 // Projects.after.insert((userId) => users.insert({
