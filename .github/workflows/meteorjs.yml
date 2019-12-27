@@ -1,4 +1,4 @@
-name: Node CI
+name: Meteor CI
 
 on: [push]
 
@@ -8,8 +8,8 @@ jobs:
 
     strategy:
       matrix:
-        meteor: ["1.8.1", "1.9-beta.3"]
-    name: Meteor ${{ matrix.meteor }} sample
+        meteor: ["1.8.3"]
+    name: Meteor ${{ matrix.meteor }}
     steps:
       - uses: actions/checkout@v1
       - name: Setup meteor
