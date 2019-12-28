@@ -1,3 +1,3 @@
-import "../both/config";
+// import "../both/config";
 import "./subscriptions";
-import "./ui/Routes";
+import "./ui/App";

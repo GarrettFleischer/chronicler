@@ -1,89 +1,101 @@
-import React, { Component as ReactComponent } from 'react';
-import { Meteor } from 'meteor/meteor';
-import { Button, IconButton, TextField, InputAdornment } from '@material-ui/core';
-import { Visibility, VisibilityOff } from '@material-ui/icons';
-import { withStyles } from '@material-ui/core/styles';
-import MaterialUIForm from 'material-ui-form';
-import PropTypes from 'prop-types';
+import React, { Component as ReactComponent } from "react";
+import { Meteor } from "meteor/meteor";
+import { withTracker } from "meteor/react-meteor-data";
+import { Button, InputLabel } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import Formsy from "formsy-react";
+import PropTypes from "prop-types";
+import { PaperPage } from "../PaperPage";
+import FormPasswordField from "../../components/FormPasswordField";
+import { Redirect } from "react-router-dom";
+import { dashboard } from "../../App";
+import FormTextField from "../../components/FormTextField";
 
-
-const styles = (theme) => ({
+const styles = theme => ({
   root: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center"
   },
-  margin: { margin: theme.spacing.unit },
+  margin: { margin: theme.spacing(4) }
 });
 
-
 class LoginUI extends ReactComponent {
-  state = { showPassword: false };
+  state = { canSubmit: false, loginError: "" };
 
-  toggleShowPassword = () => {
-    const { showPassword } = this.state;
-    this.setState({ showPassword: !showPassword });
+  enableButton = () => {
+    this.setState({ ...this.state, canSubmit: true });
   };
 
-  submit = (values) => {
-    console.log('values: ', values);
-    Meteor.loginWithPassword(values.email, values.password);
+  disableButton = () => {
+    this.setState({ ...this.state, canSubmit: false });
   };
 
+  submit = values => {
+    Meteor.loginWithPassword(values.email, values.password, err => {
+      this.setState({ ...this.state, loginError: err.reason });
+    });
+  };
 
   render() {
-    const { showPassword } = this.state;
-    const { classes } = this.props;
+    const { canSubmit, loginError } = this.state;
+    const { classes, loggedIn } = this.props;
 
     return (
-      <MaterialUIForm className={classes.root} onSubmit={this.submit}>
-        <TextField
-          className={classes.margin}
-          type="text"
-          autoComplete="email"
-          autoFocus
-          label="Email"
-          name="email"
-          value=""
-          data-validators="isEmail"
-          fullWidth
-          required
-        />
-        <TextField
-          className={classes.margin}
-          type={showPassword ? 'text' : 'password'}
-          autoComplete="current-password"
-          label="Password"
-          name="password"
-          value=""
-          data-validators={[{
-            isLength: {
-              min: 8,
-              max: 25,
-            },
-          }]}
-          fullWidth
-          required
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={this.toggleShowPassword}>
-                  {showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-        <Button className={classes.margin} type="submit" variant="outlined">
-          Login
-        </Button>
-      </MaterialUIForm>
+      <PaperPage>
+        {loggedIn && <Redirect to={dashboard} />}
+        <Formsy
+          className={classes.root}
+          onValidSubmit={this.submit}
+          onValid={this.enableButton}
+          onInvalid={this.disableButton}
+        >
+          <FormTextField
+            name="email"
+            label="Email"
+            type="text"
+            autoComplete="email"
+            autoFocus
+            fullWidth
+            className={classes.margin}
+            validations="isEmail"
+            validationError="This is not a valid email"
+            required
+          />
+          <FormPasswordField
+            className={classes.margin}
+            name="password"
+            validations={{ minLength: 8, maxLength: 32 }}
+            validationError="Password must be between 8 and 32 characters"
+            required
+          />
+          <Button
+            className={classes.margin}
+            type="submit"
+            variant="outlined"
+            disabled={!canSubmit}
+          >
+            Login
+          </Button>
+          <InputLabel className={classes.margin} error>
+            {loginError}
+          </InputLabel>
+        </Formsy>
+      </PaperPage>
     );
   }
 }
 
+LoginUI.propTypes = {
+  classes: PropTypes.object.isRequired,
+  loggedIn: PropTypes.bool
+};
 
-LoginUI.propTypes = { classes: PropTypes.object.isRequired };
+const mapTrackerToProps = () => ({
+  loggedIn: Meteor.userId() !== null
+});
 
-export const Login = withStyles(styles)(LoginUI);
+export const Login = withStyles(styles)(
+  withTracker(mapTrackerToProps)(LoginUI)
+);

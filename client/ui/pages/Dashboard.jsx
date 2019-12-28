@@ -1,17 +1,20 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Meteor } from "meteor/meteor";
+import { withRouter } from "react-router-dom";
 import { withTracker } from "meteor/react-meteor-data";
 import { Button } from "@material-ui/core";
 import { addProject, Projects } from "../../../both/api/projects/projects";
-import { DelayedButtonGrid } from "../DelayedButtonGrid";
+import { DelayedButtonGrid } from "../components/DelayedButtonGrid";
 import { PaperPage } from "./PaperPage";
 
-const DashboardUI = ({ user, projects }) => {
+const DashboardUI = ({ user, projects, history }) => {
   const items = projects.map(project => ({
     id: project._id,
     text: project.name,
-    onClick: () => {} // FlowRouter.go(`/project/${project._id}`),
+    onClick: () => {
+      history.push(`/project/${project._id}`);
+    }
   }));
 
   const createProject = () => {
@@ -47,4 +50,6 @@ const mapTrackerToProps = () => ({
   projects: Projects.find().fetch()
 });
 
-export const Dashboard = withTracker(mapTrackerToProps)(DashboardUI);
+export const Dashboard = withTracker(mapTrackerToProps)(
+  withRouter(DashboardUI)
+);

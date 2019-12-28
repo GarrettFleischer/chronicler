@@ -2,7 +2,7 @@
   "name": "chronicler",
   "private": true,
   "scripts": {
-    "start": "meteor run",
+    "start": "setx METEOR_PROFILE 1 && meteor run",
     "test": "meteor test --once --driver-package meteortesting:mocha",
     "test-app": "setx TEST_WATCH 1 && meteor test --full-app --driver-package meteortesting:mocha && setx TEST_WATCH 0",
     "visualize": "meteor --production --extra-packages bundle-visualizer"
@@ -14,6 +14,7 @@
     "bcrypt": "^3.0.6",
     "classnames": "^2.2.6",
     "dagre": "^0.8.4",
+    "formsy-react": "^1.1.5",
     "meteor-node-stubs": "^0.4.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",

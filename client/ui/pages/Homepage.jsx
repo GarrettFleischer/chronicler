@@ -1,14 +1,22 @@
-import React from 'react';
-import { FlowRouter } from 'meteor/kadira:flow-router';
-import { Button } from '@material-ui/core';
-import { Page } from './Page';
-
+import React from "react";
+import { Button } from "@material-ui/core";
+import { Page } from "./Page";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+  useHistory,
+  useLocation
+} from "react-router-dom";
+import { dashboard } from "../App";
 
 export const Homepage = () => (
   <Page>
     Homepage
-    <Button onClick={() => FlowRouter.go('dashboard')}>
-      Dashboard
-    </Button>
+    <Link to={dashboard}>
+      <Button>Dashboard</Button>
+    </Link>
   </Page>
 );

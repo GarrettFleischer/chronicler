@@ -1,34 +1,39 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { FlowRouter } from 'meteor/kadira:flow-router';
-import { withTracker } from 'meteor/react-meteor-data';
-import { LABEL, CHOICE, addNode, updateNodeParentId } from '../../../both/api/nodes/nodes';
-import { Scenes } from '../../../both/api/scenes/scenes';
-import { Flowchart } from '../Flowchart';
-import { Page } from './Page';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { useParams, withRouter } from "react-router-dom";
+import { withTracker } from "meteor/react-meteor-data";
+import {
+  LABEL,
+  CHOICE,
+  addNode,
+  updateNodeParentId
+} from "../../../both/api/nodes/nodes";
+import { Scenes } from "../../../both/api/scenes/scenes";
+import { Flowchart } from "../Flowchart";
+import { Page } from "./Page";
 
-
-const NONE = 'NONE';
+const NONE = "NONE";
 
 class SceneUI extends Component {
   state = {
     mode: NONE,
-    selected: null,
+    selected: null
   };
 
-  nodeClicked = (node) => {
+  nodeClicked = node => {
     const { scene } = this.props;
     const { mode, selected } = this.state;
 
     if (mode === LABEL) {
-      if (selected && selected.type !== LABEL && node.type === LABEL) updateNodeParentId(node._id, [...node.parentId, selected]);
-      else if (selected === node._id) addNode(LABEL, 'new', scene._id, [node._id]);
-    } else if (mode === CHOICE) addNode(CHOICE, 'new', scene._id, node._id);
-    else FlowRouter.go(`/node/${node._id}`);
+      if (selected && selected.type !== LABEL && node.type === LABEL)
+        updateNodeParentId(node._id, [...node.parentId, selected]);
+      else if (selected === node._id)
+        addNode(LABEL, "new", scene._id, [node._id]);
+    } else if (mode === CHOICE) addNode(CHOICE, "new", scene._id, node._id);
+    else this.props.history.push(`/node/${node._id}`);
 
     this.setState({ selected: node._id });
   };
-
 
   render() {
     const { scene, nodes } = this.props;
@@ -40,54 +45,52 @@ class SceneUI extends Component {
         <div>
           <button
             type="submit"
-            style={{ backgroundColor: mode === LABEL ? 'white' : 'grey' }}
+            style={{ backgroundColor: mode === LABEL ? "white" : "grey" }}
             onClick={() => this.setState({ mode: LABEL })}
           >
             Label
           </button>
           <button
             type="submit"
-            style={{ backgroundColor: mode === CHOICE ? 'white' : 'grey' }}
+            style={{ backgroundColor: mode === CHOICE ? "white" : "grey" }}
             onClick={() => this.setState({ mode: CHOICE })}
           >
             Choice
           </button>
           <button
             type="submit"
-            style={{ backgroundColor: mode === NONE ? 'white' : 'grey' }}
+            style={{ backgroundColor: mode === NONE ? "white" : "grey" }}
             onClick={() => this.setState({ mode: NONE })}
           >
             Select
           </button>
         </div>
-        {dataLoaded
-        && <Flowchart nodes={nodes} nodeClicked={this.nodeClicked} />
-        }
-        {!dataLoaded
-        && 'loading scene...'
-        }
+        {dataLoaded && (
+          <Flowchart nodes={nodes} nodeClicked={this.nodeClicked} />
+        )}
+        {!dataLoaded && "loading scene..."}
       </Page>
     );
   }
 }
 
-
 SceneUI.propTypes = {
   scene: PropTypes.object,
-  nodes: PropTypes.array,
+  nodes: PropTypes.array
 };
 
 SceneUI.defaultProps = {
   scene: null,
-  nodes: null,
+  nodes: null
 };
 
 const mapTrackerToProps = () => {
-  const scene = Scenes.findOne({ _id: FlowRouter.getParam('id') });
-  return ({
+  const { sceneId } = useParams();
+  const scene = Scenes.findOne({ _id: sceneId });
+  return {
     scene,
-    nodes: scene ? scene.nodes() : undefined,
-  });
+    nodes: scene ? scene.nodes() : undefined
+  };
 };
 
-export const Scene = withTracker(mapTrackerToProps)(SceneUI);
+export const Scene = withTracker(mapTrackerToProps)(withRouter(SceneUI));
