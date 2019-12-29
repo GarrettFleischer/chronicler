@@ -12,11 +12,15 @@ const Logout = () => {
   return <Redirect to={homepage} />;
 };
 
+export const loginPath = "/login";
+export const registerPath = "/register";
+export const logoutPath = "/logout";
+
 export const AuthRoutes = () => (
   <Switch>
-    <Route exact path="/login" component={Login} />
-    <Route exact path="/register" component={Register} />
-    <Route exact path="/logout" component={Logout} />
+    <Route exact path={loginPath} component={Login} />
+    <Route exact path={registerPath} component={Register} />
+    <Route exact path={logoutPath} component={Logout} />
     {/* 
         <Route exact path="/forgot-password" component={Homepage} />
         <Route exact path="/change-password" component={Homepage} />
