@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
-import React from "react";
-import { Grid, Zoom, Typography } from "@material-ui/core";
-import { DelayedButton } from "./DelayedButton";
+import PropTypes from 'prop-types'
+import React from 'react'
+import { Grid, Zoom, Typography } from '@material-ui/core'
+import { DelayedButton } from './DelayedButton'
 
 export const DelayedButtonGrid = ({ items, width, height }) => (
   <Grid container spacing={8}>
@@ -19,7 +19,7 @@ export const DelayedButtonGrid = ({ items, width, height }) => (
               container
               alignItems="center"
               justify="center"
-              style={{ height: "100%" }}
+              style={{ height: '100%' }}
             >
               <Grid item>
                 <Typography>{item.text}</Typography>
@@ -30,7 +30,7 @@ export const DelayedButtonGrid = ({ items, width, height }) => (
       </Zoom>
     ))}
   </Grid>
-);
+)
 
 DelayedButtonGrid.propTypes = {
   items: PropTypes.arrayOf(
@@ -42,4 +42,4 @@ DelayedButtonGrid.propTypes = {
   ).isRequired,
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired
-};
+}

@@ -1,51 +1,51 @@
-import React, { Component as ReactComponent } from "react";
-import { Meteor } from "meteor/meteor";
-import { Accounts } from "meteor/accounts-base";
-import { withTracker } from "meteor/react-meteor-data";
-import { Button, InputLabel } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
-import Formsy from "formsy-react";
-import PropTypes from "prop-types";
-import { PaperPage } from "../PaperPage";
-import FormPasswordField from "../../components/FormPasswordField";
-import { Redirect } from "react-router-dom";
-import { dashboard } from "../../App";
-import FormTextField from "../../components/FormTextField";
+import React, { Component as ReactComponent } from 'react'
+import { Meteor } from 'meteor/meteor'
+import { Accounts } from 'meteor/accounts-base'
+import { withTracker } from 'meteor/react-meteor-data'
+import { Button, InputLabel } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
+import Formsy from 'formsy-react'
+import PropTypes from 'prop-types'
+import { PaperPage } from '../PaperPage'
+import FormPasswordField from '../../components/FormPasswordField'
+import { Redirect } from 'react-router-dom'
+import { dashboardRoute } from '../../App'
+import FormTextField from '../../components/FormTextField'
 
 const styles = theme => ({
   root: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center"
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   margin: { margin: theme.spacing(4) }
-});
+})
 
 class RegisterUI extends ReactComponent {
-  state = { canSubmit: false, registerError: "" };
+  state = { canSubmit: false, registerError: '' };
 
   enableButton = () => {
-    this.setState({ ...this.state, canSubmit: true });
+    this.setState({ ...this.state, canSubmit: true })
   };
 
   disableButton = () => {
-    this.setState({ ...this.state, canSubmit: false });
+    this.setState({ ...this.state, canSubmit: false })
   };
 
   submit = values => {
     Accounts.createUser(values, err => {
-      this.setState({ ...this.state, registerError: err.reason });
-    });
+      this.setState({ ...this.state, registerError: err.reason })
+    })
   };
 
-  render() {
-    const { canSubmit, registerError } = this.state;
-    const { classes, user } = this.props;
+  render () {
+    const { canSubmit, registerError } = this.state
+    const { classes, user } = this.props
 
     return (
       <PaperPage>
-        {user && <Redirect to={dashboard} />}
+        {user && <Redirect to={dashboardRoute} />}
         <Formsy
           className={classes.root}
           onValidSubmit={this.submit}
@@ -94,19 +94,19 @@ class RegisterUI extends ReactComponent {
           </InputLabel>
         </Formsy>
       </PaperPage>
-    );
+    )
   }
 }
 
 RegisterUI.propTypes = {
   classes: PropTypes.object.isRequired,
   user: PropTypes.bool
-};
+}
 
 const mapTrackerToProps = () => ({
   user: Meteor.user() !== null
-});
+})
 
 export const Register = withStyles(styles)(
   withTracker(mapTrackerToProps)(RegisterUI)
-);
+)

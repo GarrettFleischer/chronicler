@@ -1,12 +1,12 @@
-import PropTypes from "prop-types";
-import React from "react";
-import { Header } from "../components/Header";
+import PropTypes from 'prop-types'
+import React from 'react'
+import { Header } from '../components/Header'
 
 export const Page = ({ children }) => (
-  <div style={{ height: "100%" }}>
+  <div style={{ height: '100%' }}>
     <Header key="header" />
     {children}
   </div>
-);
+)
 
-Page.propTypes = { children: PropTypes.node.isRequired };
+Page.propTypes = { children: PropTypes.node.isRequired }

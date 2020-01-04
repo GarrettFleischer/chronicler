@@ -1,38 +1,38 @@
-import { Select, MenuItem, TextField } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { GLOBAL, updateVariableName, updateVariableSceneId, updateVariableValue } from '../../../../both/api/variables/variables';
+import { Select, MenuItem, TextField } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
+import PropTypes from 'prop-types'
+import React from 'react'
+import { GLOBAL, updateVariableName, updateVariableSceneId, updateVariableValue } from '../../../../both/api/variables/variables'
 
 const styles = (theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
-  margin: { margin: theme.spacing.unit },
-});
+  margin: { margin: theme.spacing.unit }
+})
 
 const VariableUI = ({ classes, variable, scenes }) => {
   const updateSceneId = (e) => {
-    updateVariableSceneId(variable._id, e.target.value);
-  };
+    updateVariableSceneId(variable._id, e.target.value)
+  }
 
   const updateName = (e) => {
-    updateVariableName(variable._id, e.target.value);
-  };
+    updateVariableName(variable._id, e.target.value)
+  }
 
   const updateValue = (e) => {
-    updateVariableValue(variable._id, e.target.value);
-  };
+    updateVariableValue(variable._id, e.target.value)
+  }
 
   return (
     <div className={classes.root}>
       <div>
         <Select className={classes.margin} value={variable.sceneId || -1} label="Scene" onChange={updateSceneId}>
           <MenuItem value={GLOBAL}>
-          Global
+            Global
           </MenuItem>
           {scenes.map((scene) => (
             <MenuItem key={scene.id} value={scene.id}>
@@ -54,13 +54,13 @@ const VariableUI = ({ classes, variable, scenes }) => {
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
 VariableUI.propTypes = {
   classes: PropTypes.object.isRequired,
   variable: PropTypes.object.isRequired,
-  scenes: PropTypes.array.isRequired,
-};
+  scenes: PropTypes.array.isRequired
+}
 
-export const Variable = withStyles(styles)(VariableUI);
+export const Variable = withStyles(styles)(VariableUI)

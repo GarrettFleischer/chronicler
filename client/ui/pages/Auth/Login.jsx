@@ -1,50 +1,50 @@
-import React, { Component as ReactComponent } from "react";
-import { Meteor } from "meteor/meteor";
-import { withTracker } from "meteor/react-meteor-data";
-import { Button, InputLabel } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
-import Formsy from "formsy-react";
-import PropTypes from "prop-types";
-import { PaperPage } from "../PaperPage";
-import FormPasswordField from "../../components/FormPasswordField";
-import { Redirect } from "react-router-dom";
-import { dashboard } from "../../App";
-import FormTextField from "../../components/FormTextField";
+import React, { Component as ReactComponent } from 'react'
+import { Meteor } from 'meteor/meteor'
+import { withTracker } from 'meteor/react-meteor-data'
+import { Button, InputLabel } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
+import Formsy from 'formsy-react'
+import PropTypes from 'prop-types'
+import { PaperPage } from '../PaperPage'
+import FormPasswordField from '../../components/FormPasswordField'
+import { Redirect } from 'react-router-dom'
+import { dashboardRoute } from '../../App'
+import FormTextField from '../../components/FormTextField'
 
 const styles = theme => ({
   root: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center"
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   margin: { margin: theme.spacing(4) }
-});
+})
 
 class LoginUI extends ReactComponent {
-  state = { canSubmit: false, loginError: "" };
+  state = { canSubmit: false, loginError: '' };
 
   enableButton = () => {
-    this.setState({ ...this.state, canSubmit: true });
+    this.setState({ ...this.state, canSubmit: true })
   };
 
   disableButton = () => {
-    this.setState({ ...this.state, canSubmit: false });
+    this.setState({ ...this.state, canSubmit: false })
   };
 
   submit = values => {
     Meteor.loginWithPassword(values.email, values.password, err => {
-      this.setState({ ...this.state, loginError: err.reason });
-    });
+      this.setState({ ...this.state, loginError: err.reason })
+    })
   };
 
-  render() {
-    const { canSubmit, loginError } = this.state;
-    const { classes, loggedIn } = this.props;
+  render () {
+    const { canSubmit, loginError } = this.state
+    const { classes, loggedIn } = this.props
 
     return (
       <PaperPage>
-        {loggedIn && <Redirect to={dashboard} />}
+        {loggedIn && <Redirect to={dashboardRoute} />}
         <Formsy
           className={classes.root}
           onValidSubmit={this.submit}
@@ -83,19 +83,19 @@ class LoginUI extends ReactComponent {
           </InputLabel>
         </Formsy>
       </PaperPage>
-    );
+    )
   }
 }
 
 LoginUI.propTypes = {
   classes: PropTypes.object.isRequired,
   loggedIn: PropTypes.bool
-};
+}
 
 const mapTrackerToProps = () => ({
   loggedIn: Meteor.userId() !== null
-});
+})
 
 export const Login = withStyles(styles)(
   withTracker(mapTrackerToProps)(LoginUI)
-);
+)

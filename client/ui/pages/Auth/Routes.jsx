@@ -1,33 +1,32 @@
-import React, { Component } from "react";
-import { Redirect } from "react-router";
-import { Route, Switch } from "react-router-dom";
-import { withTracker } from "meteor/react-meteor-data";
-import { Login } from "./Login";
-import { Register } from "./Register";
-import { Homepage } from "../Homepage";
-import { homepage } from "../../App";
+import React from 'react'
+import { Redirect } from 'react-router'
+import { Route, Switch } from 'react-router-dom'
+import { Login } from './Login'
+import { Register } from './Register'
+import { homepageRoute } from '../../App'
+import { Meteor } from 'meteor'
 
 const Logout = () => {
-  Meteor.logout();
-  return <Redirect to={homepage} />;
-};
+  Meteor.logout()
+  return <Redirect to={homepageRoute} />
+}
 
-export const loginPath = "/login";
-export const registerPath = "/register";
-export const logoutPath = "/logout";
+export const loginPath = '/login'
+export const registerPath = '/register'
+export const logoutPath = '/logout'
 
 export const AuthRoutes = () => (
   <Switch>
     <Route exact path={loginPath} component={Login} />
     <Route exact path={registerPath} component={Register} />
     <Route exact path={logoutPath} component={Logout} />
-    {/* 
+    {/*
         <Route exact path="/forgot-password" component={Homepage} />
         <Route exact path="/change-password" component={Homepage} />
         <Route exact path="/reset-password/:token" component={Homepage} />
         <Route exact path="/resend-verification" component={Homepage} /> */}
   </Switch>
-);
+)
 
 // class Authentication extends Component {
 //   render() {

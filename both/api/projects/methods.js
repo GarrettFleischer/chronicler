@@ -23,8 +23,6 @@ Meteor.methods({
       name,
       author
     });
-    const insertedProject = Projects.findOne({ _id: project });
-    console.log(`inserting project:\n${JSON.stringify(insertedProject)}`);
     return project;
   },
 

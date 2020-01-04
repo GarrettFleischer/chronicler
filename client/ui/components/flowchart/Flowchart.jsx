@@ -4,7 +4,7 @@ import { ReactSVGPanZoom } from "react-svg-pan-zoom";
 // import withSizes from 'react-sizes';
 import ContainerDimensions from "react-container-dimensions";
 import { graphlib, layout as dagreLayout } from "dagre";
-import { LABEL } from "../../../both/api/nodes/nodes";
+import { LABEL } from "../../../../both/api/nodes/nodes";
 import { Choice } from "./Choice";
 import { Label } from "./Label";
 import { StraightConnection } from "./StraightConnection";

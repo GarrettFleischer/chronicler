@@ -1,14 +1,14 @@
-import PropTypes from "prop-types";
-import React from "react";
-import { Button } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
+import PropTypes from 'prop-types'
+import React from 'react'
+import { Button } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
 
 const styles = {
   root: {
     margin: 0,
     padding: 0
   }
-};
+}
 
 const DelayedButtonUI = ({ classes, children, width, height, onClick }) => (
   <Button
@@ -19,7 +19,7 @@ const DelayedButtonUI = ({ classes, children, width, height, onClick }) => (
   >
     {children}
   </Button>
-);
+)
 
 DelayedButtonUI.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -27,6 +27,6 @@ DelayedButtonUI.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   onClick: PropTypes.func.isRequired
-};
+}
 
-export const DelayedButton = withStyles(styles)(DelayedButtonUI);
+export const DelayedButton = withStyles(styles)(DelayedButtonUI)

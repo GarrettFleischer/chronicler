@@ -1,19 +1,21 @@
-import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { Meteor } from "meteor/meteor";
-import { render } from "react-dom";
-import { AuthRoutes } from "./pages/Auth/Routes";
-import { ThemeProvider } from "@material-ui/styles";
-import { theme } from "./theme";
-import { CssBaseline } from "@material-ui/core";
-import { Homepage } from "./pages/Homepage";
-import { Dashboard } from "./pages/Dashboard";
-import PrivateRoute from "./PrivateRoute";
+import React from 'react'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { Meteor } from 'meteor/meteor'
+import { render } from 'react-dom'
+import { AuthRoutes } from './pages/Auth/Routes'
+import { ThemeProvider } from '@material-ui/styles'
+import { theme } from './theme'
+import { CssBaseline } from '@material-ui/core'
+import { Homepage } from './pages/Homepage'
+import { Dashboard } from './pages/Dashboard'
+import PrivateRoute from './PrivateRoute'
+import { Project } from './pages/project/Project'
+import { Scene } from './pages/Scene'
 
-export const homepage = "/";
-export const dashboard = "/dashboard";
-export const project = "/project/:projectId";
-export const scenes = "/scene/:sceneId";
+export const homepageRoute = '/'
+export const dashboardRoute = '/dashboard'
+export const projectRoute = '/project/:id'
+export const sceneRoute = '/scene/:id'
 
 Meteor.startup(() => {
   render(
@@ -21,17 +23,23 @@ Meteor.startup(() => {
       <CssBaseline>
         <BrowserRouter>
           <Switch>
-            <Route exact path={homepage}>
+            <Route exact path={homepageRoute}>
               <Homepage />
             </Route>
-            <PrivateRoute path={dashboard}>
+            <PrivateRoute path={dashboardRoute}>
               <Dashboard />
+            </PrivateRoute>
+            <PrivateRoute path={projectRoute}>
+              <Project />
+            </PrivateRoute>
+            <PrivateRoute path={sceneRoute}>
+              <Scene />
             </PrivateRoute>
             <AuthRoutes />
           </Switch>
         </BrowserRouter>
       </CssBaseline>
     </ThemeProvider>,
-    document.getElementById("react-target")
-  );
-});
+    document.getElementById('react-target')
+  )
+})
