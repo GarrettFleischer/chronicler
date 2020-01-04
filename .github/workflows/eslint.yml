@@ -3,10 +3,18 @@ name: ESLint
 on: [push, pull_request]
 
 jobs:
-  lint:
+  build:
+    name: Run ESLint
     runs-on: ubuntu-latest
     steps:
-      - name: ESLint
-        uses: hallee/eslint-action@1.0.1
+      # Check out the repository
+      - uses: actions/checkout@v1
+      # Install Node.js
+      - uses: actions/setup-node@v1
+      # Install your dependencies
+      - run: npm ci
+      # Run ESLint
+      - uses: hallee/eslint-action@1.0.1
         with:
           secrets: ["GITHUB_TOKEN"]
+
