@@ -202,6 +202,7 @@ NodeUI.defaultProps = {
 }
 
 const mapTrackerToProps = () => {
+  const temp = ''
   const node = Nodes.findOne({ _id: FlowRouter.getParam('id') })
   return {
     node,
