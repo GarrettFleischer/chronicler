@@ -1,0 +1,7 @@
+name: ESLint
+
+on: [push]
+
+resolves: ["ESLint"]
+
+uses: hallee/eslint-action@1.0.1
