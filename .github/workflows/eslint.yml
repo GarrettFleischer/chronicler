@@ -10,4 +10,3 @@ jobs:
     steps:
       - name: ESLint
         uses: hallee/eslint-action@1.0.1
-        secrets: ["GITHUB_TOKEN"]
