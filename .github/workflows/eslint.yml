@@ -1,7 +1,13 @@
 name: ESLint
 
-on: [push]
+on: [push, pull_request]
 
 resolves: ["ESLint"]
 
-uses: hallee/eslint-action@1.0.1
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ESLint
+        uses: hallee/eslint-action@1.0.1
+        secrets: ["GITHUB_TOKEN"]
