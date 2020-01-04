@@ -3,21 +3,20 @@ name: ESLint
 on: [push, pull_request]
 
 jobs:
-  build:
-    name: Run ESLint
+  eslint:
     runs-on: ubuntu-latest
     steps:
-      
-      # Check out the repository
       - uses: actions/checkout@v1
-
-      # Install Node.js
+        with:
+          fetch-depth: 1
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-
-      # Install your dependencies
-      - run: npm ci
-
-      # Run ESLint
-      - uses: eslint/github-action@v0
+      - run: npm ci --no-audit --prefer-offline
+        env:
+          PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true
+          HUSKY_SKIP_INSTALL: true
+      - uses: tinovyatkin/action-eslint@v1
+        with:
+          repo-token: ${{secrets.GITHUB_TOKEN}}
+          check-name: eslint # this is the check name from above 👆 where to post annotations
