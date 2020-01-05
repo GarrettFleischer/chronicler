@@ -1,21 +1,23 @@
-import assert from "assert";
-import "../both/api/tests";
+/* eslint-disable no-undef */
+import assert from 'assert'
+import { Meteor } from 'meteor/meteor'
+import '../both/api/tests'
 
-describe("chronicler", function() {
-    it("package.json has correct name", async function() {
-        const { name } = await import("../package.json");
-        assert.strictEqual(name, "chronicler");
-    });
+describe('chronicler', function() {
+  it('package.json has correct name', async function() {
+    const { name } = await import('../package.json')
+    assert.strictEqual(name, 'chronicler')
+  })
 
-    if (Meteor.isClient) {
-        it("client is not server", function() {
-            assert.strictEqual(Meteor.isServer, false);
-        });
-    }
+  if (Meteor.isClient) {
+    it('client is not server', function() {
+      assert.strictEqual(Meteor.isServer, false)
+    })
+  }
 
-    if (Meteor.isServer) {
-        it("server is not client", function() {
-            assert.strictEqual(Meteor.isClient, false);
-        });
-    }
-});
+  if (Meteor.isServer) {
+    it('server is not client', function() {
+      assert.strictEqual(Meteor.isClient, false)
+    })
+  }
+})

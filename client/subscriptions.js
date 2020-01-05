@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor'
+import '../both/api'
 
 Meteor.subscribe('projects')
 Meteor.subscribe('scenes')

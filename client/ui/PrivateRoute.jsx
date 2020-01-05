@@ -3,6 +3,7 @@ import { withTracker } from 'meteor/react-meteor-data'
 import PropTypes from 'prop-types'
 import { Route, Redirect } from 'react-router-dom'
 import { loginPath } from './pages/Auth/Routes'
+import { Meteor } from 'meteor/meteor'
 
 const PrivateRoute = ({ children, isAuthenticated, ...rest }) => {
   return (

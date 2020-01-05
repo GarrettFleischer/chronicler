@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor'
 
 Meteor.users.deny({
-  update () {
+  update() {
     return true
   }
 })

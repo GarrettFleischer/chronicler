@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom'
 import { Login } from './Login'
 import { Register } from './Register'
 import { homepageRoute } from '../../App'
-import { Meteor } from 'meteor'
+import { Meteor } from 'meteor/meteor'
 
 const Logout = () => {
   Meteor.logout()

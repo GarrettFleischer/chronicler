@@ -2,7 +2,7 @@ import { DragHandle } from '@material-ui/icons'
 import React, { Component as ReactComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Grid } from '@material-ui/core'
-import DragHandleIcon from '@material-ui/icons/DragHandle'
+// import DragHandleIcon from '@material-ui/icons/DragHandle'
 import { FlowRouter } from 'meteor/kadira:flow-router'
 import { withTracker } from 'meteor/react-meteor-data'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
@@ -107,7 +107,7 @@ class NodeUI extends ReactComponent {
 
   // Normally you would want to split things out into separate components.
   // But in this example everything is just done in one place for simplicity
-  render () {
+  render() {
     const { components } = this.props
     components.sort((a, b) => a.order - b.order)
     return (

@@ -1,4 +1,4 @@
-import { Select, MenuItem, TextField } from '@material-ui/core'
+import { Select, MenuItem, TextField, InputLabel, FormControl } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -11,7 +11,7 @@ const styles = (theme) => ({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  margin: { margin: theme.spacing.unit }
+  margin: { margin: theme.spacing() }
 })
 
 const VariableUI = ({ classes, variable, scenes }) => {
@@ -30,16 +30,19 @@ const VariableUI = ({ classes, variable, scenes }) => {
   return (
     <div className={classes.root}>
       <div>
-        <Select className={classes.margin} value={variable.sceneId || -1} label="Scene" onChange={updateSceneId}>
-          <MenuItem value={GLOBAL}>
+        <FormControl className={classes.margin}>
+          <InputLabel shrink>Scene</InputLabel>
+          <Select value={variable.sceneId || -1} onChange={updateSceneId}>
+            <MenuItem value={GLOBAL}>
             Global
-          </MenuItem>
-          {scenes.map((scene) => (
-            <MenuItem key={scene.id} value={scene.id}>
-              {scene.text}
             </MenuItem>
-          ))}
-        </Select>
+            {scenes.map((scene) => (
+              <MenuItem key={scene.id} value={scene.id}>
+                {scene.text}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <TextField
           className={classes.margin}
           label="Name"

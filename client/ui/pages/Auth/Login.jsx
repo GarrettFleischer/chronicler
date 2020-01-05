@@ -38,7 +38,7 @@ class LoginUI extends ReactComponent {
     })
   };
 
-  render () {
+  render() {
     const { canSubmit, loginError } = this.state
     const { classes, loggedIn } = this.props
 

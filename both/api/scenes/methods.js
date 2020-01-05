@@ -5,19 +5,19 @@ import { Scenes, INSERT, REMOVE, UPDATE } from './scenes'
 import { notAuthorized } from '../exceptions'
 
 Scenes.helpers({
-  project () {
+  project() {
     return Projects.findOne(this.projectId)
   },
-  nodes () {
+  nodes() {
     return Nodes.find({ sceneId: this._id }).fetch()
   },
-  startNode () {
+  startNode() {
     return Nodes.findOne({ sceneId: this._id, parentId: null })
   }
 })
 
 Meteor.methods({
-  [INSERT] (name, projectId) {
+  [INSERT](name, projectId) {
     if (!this.userId) throw notAuthorized
     return Scenes.insert({
       owner: this.userId,
@@ -27,13 +27,13 @@ Meteor.methods({
     })
   },
 
-  [UPDATE] (id, { name }) {
+  [UPDATE](id, { name }) {
     const scene = Scenes.findOne({ _id: id })
     if (this.userId !== scene.owner) throw notAuthorized
     return Scenes.update({ _id: id }, { $set: { name } })
   },
 
-  [REMOVE] (id) {
+  [REMOVE](id) {
     const scene = Scenes.findOne({ _id: id })
     if (this.userId !== scene.owner) throw notAuthorized
     return Scenes.remove({ _id: id })
@@ -41,18 +41,18 @@ Meteor.methods({
 })
 
 // eslint-disable-next-line func-names
-Scenes.after.insert(userId => {
+Scenes.after.insert((userId, doc) => {
   // check the userId for when in unit testing mode
   if (userId !== undefined) {
     Nodes.insert({
       type: LABEL,
       owner: userId,
       text: 'start',
-      sceneId: this._id,
+      sceneId: doc._id,
       parentId: null,
       createdOn: Date.now()
     })
   }
 })
 
-Scenes.before.remove((userId, doc) => Nodes.remove({ sceneId: doc._id }))
+Scenes.before.remove((_, doc) => Nodes.remove({ sceneId: doc._id }))

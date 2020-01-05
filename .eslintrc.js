@@ -17,7 +17,6 @@ module.exports = {
         "ecmaFeatures": {
             "jsx": true
         },
-        // "ecmaVersion": 2018,
         "sourceType": "module"
     },
     "plugins": [
@@ -26,6 +25,7 @@ module.exports = {
     ],
     "rules": {
         "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "warn"
+        "react-hooks/exhaustive-deps": "warn",
+        "space-before-function-paren": ["error", "never"]
     }
 };

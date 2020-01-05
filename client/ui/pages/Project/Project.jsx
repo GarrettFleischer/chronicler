@@ -15,7 +15,7 @@ class ProjectUI extends ReactComponent {
     this.setState({ tab })
   };
 
-  render () {
+  render() {
     const { project, scenes, variables } = this.props
     const { tab } = this.state
 

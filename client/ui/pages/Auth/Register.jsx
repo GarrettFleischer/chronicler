@@ -39,7 +39,7 @@ class RegisterUI extends ReactComponent {
     })
   };
 
-  render () {
+  render() {
     const { canSubmit, registerError } = this.state
     const { classes, user } = this.props
 

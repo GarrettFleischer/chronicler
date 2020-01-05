@@ -1,5 +1,6 @@
 import React from 'react'
 import { withFormsy } from 'formsy-react'
+import PropTypes from 'prop-types'
 import { TextField, IconButton, InputAdornment } from '@material-ui/core'
 import { Visibility, VisibilityOff } from '@material-ui/icons'
 
@@ -15,7 +16,7 @@ class FormPasswordField extends React.Component {
     this.props.setValue(event.currentTarget.value)
   };
 
-  render () {
+  render() {
     const { showPassword } = this.state
     // An error message is returned only if the component is invalid
     const errorMessage = this.props.getErrorMessage()
@@ -45,6 +46,13 @@ class FormPasswordField extends React.Component {
       />
     )
   }
+}
+
+FormPasswordField.propTypes = {
+  setValue: PropTypes.func,
+  getErrorMessage: PropTypes.func,
+  getValue: PropTypes.func,
+  isValidValue: PropTypes.func
 }
 
 export default withFormsy(FormPasswordField)

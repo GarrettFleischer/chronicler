@@ -5,19 +5,19 @@ import { Nodes, INSERT, REMOVE, UPDATE, LABEL } from './nodes'
 import { notAuthorized, noModify } from '../exceptions'
 
 Nodes.helpers({
-  scene () {
+  scene() {
     return Scenes.findOne({ _id: this.sceneId })
   },
-  children () {
+  children() {
     return Nodes.find({ parentId: this._id }).fetch()
   },
-  components () {
+  components() {
     return Components.find({ nodeId: this._id }).fetch()
   }
 })
 
 Meteor.methods({
-  [INSERT] (type, text, sceneId, parentId) {
+  [INSERT](type, text, sceneId, parentId) {
     if (!this.userId) throw notAuthorized
     return Nodes.insert({
       owner: this.userId,
@@ -29,7 +29,7 @@ Meteor.methods({
     })
   },
 
-  [UPDATE] (id, { text, parentId }) {
+  [UPDATE](id, { text, parentId }) {
     if (text === undefined && parentId === undefined) throw noModify
     const node = Nodes.findOne({ _id: id })
     if (this.userId !== node.owner) throw notAuthorized
@@ -37,14 +37,14 @@ Meteor.methods({
     return Nodes.update({ _id: id }, { $set: { text, parentId } })
   },
 
-  [REMOVE] (id) {
+  [REMOVE](id) {
     const node = Nodes.findOne({ _id: id })
     if (this.userId !== node.owner) throw notAuthorized
     return Nodes.remove({ _id: id })
   }
 })
 
-Nodes.before.remove((userId, doc) => {
+Nodes.before.remove((_, doc) => {
   Nodes.remove({ parentId: doc._id })
   Components.remove({ nodeId: doc._id })
 })

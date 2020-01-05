@@ -32,7 +32,7 @@ class SceneUI extends Component {
     this.setState({ selected: node._id })
   };
 
-  render () {
+  render() {
     const { scene, nodes } = this.props
     const { mode } = this.state
 
