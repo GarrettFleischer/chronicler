@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react'
-import { Button } from 'react-onsenui'
+import { Button } from 'primereact/button'
 
 type Action = {
   type: 'increment' | 'decrement'
@@ -25,8 +25,8 @@ const Hello = () => {
 
   return (
     <div>
-      <Button onClick={increment}>increment</Button>
-      <Button onClick={decrement}>decrement</Button>
+      <Button label='increment' onClick={increment}/>
+      <Button label='decrement' onClick={decrement}/>
       <p>{`You've pressed the button ${counter} times.`}</p>
     </div>
   )

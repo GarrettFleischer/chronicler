@@ -8,6 +8,7 @@ export interface Project {
     _id: ID,
     owner: ID
     title: string,
-    url: URL,
+    summary: string,
+    imageUrl: string,
     createdAt: Date
 }
