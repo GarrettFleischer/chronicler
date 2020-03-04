@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "alwaysStrict": true,
+        "jsx": "react",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noImplicitAny": false,
+        "sourceMap": true,
+        "strictNullChecks": false,
+        "target": "ESNext",
+        "esModuleInterop": true,
+        "resolveJsonModule": true
+    }
+}

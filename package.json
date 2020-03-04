@@ -20,12 +20,16 @@
   "meteor": {
     "mainModule": {
       "client": "client/main.tsx",
-      "server": "server/main.js"
+      "server": "server/main.ts"
     },
-    "testModule": "tests/main.js"
+    "testModule": "tests/main.ts"
   },
   "devDependencies": {
+    "@types/chai": "^4.2.10",
+    "@types/faker": "^4.1.10",
+    "@types/jest": "^25.1.3",
     "@types/meteor": "^1.4.40",
+    "@types/mocha": "^7.0.2",
     "@types/react-dom": "^16.9.5",
     "@typescript-eslint/eslint-plugin": "^2.21.0",
     "@typescript-eslint/parser": "^2.21.0",
@@ -38,6 +42,7 @@
     "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-react-hooks": "^1.7.0",
     "eslint-plugin-standard": "^4.0.1",
+    "faker": "^4.1.0",
     "typescript": "^3.8.3"
   }
 }
