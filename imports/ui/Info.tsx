@@ -1,6 +1,5 @@
 import React from 'react'
 import { withTracker } from 'meteor/react-meteor-data'
-// eslint-disable-next-line no-unused-vars
 import Links, { Link } from '../api/links'
 
 const renderLink = (link: Link) => (

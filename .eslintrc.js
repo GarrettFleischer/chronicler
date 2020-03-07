@@ -5,6 +5,8 @@ module.exports = {
   },
   extends: [
     'plugin:react/recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
     'standard'
   ],
   globals: {
@@ -24,5 +26,6 @@ module.exports = {
     '@typescript-eslint'
   ],
   rules: {
+    '@typescipt-eslint/member-delimiter-style': false
   }
 }

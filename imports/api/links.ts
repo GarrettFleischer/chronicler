@@ -1,5 +1,4 @@
 import { Mongo } from 'meteor/mongo'
-// eslint-disable-next-line no-unused-vars
 import { ID } from './types'
 
 export interface Link {

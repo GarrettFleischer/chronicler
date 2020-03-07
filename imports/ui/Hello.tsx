@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react'
-import { Button } from 'primereact/button'
+import { Button } from '@material-ui/core'
 
 type Action = {
   type: 'increment' | 'decrement'
@@ -25,8 +25,8 @@ const Hello = () => {
 
   return (
     <div>
-      <Button label='increment' onClick={increment}/>
-      <Button label='decrement' onClick={decrement}/>
+      <Button onClick={increment}>increment</Button>
+      <Button onClick={decrement}>decrement</Button>
       <p>{`You've pressed the button ${counter} times.`}</p>
     </div>
   )
