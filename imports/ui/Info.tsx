@@ -2,7 +2,7 @@ import React from 'react'
 import { withTracker } from 'meteor/react-meteor-data'
 import Links, { Link } from '../api/links'
 
-const renderLink = (link: Link) => (
+const renderLink = (link: Link): JSX.Element => (
   <li key={link._id}>
     <a href={link.url} target="_blank" rel='noreferrer noopener'>{link.title}</a>
   </li>

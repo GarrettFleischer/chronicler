@@ -26,6 +26,15 @@ module.exports = {
     '@typescript-eslint'
   ],
   rules: {
-    '@typescipt-eslint/member-delimiter-style': false
+    '@typescript-eslint/member-delimiter-style': [2, {
+        'multiline': {
+            'delimiter': 'none',
+            'requireLast': true
+        },
+        'singleline': {
+            'delimiter': 'semi',
+            'requireLast': false
+        }
+    }]
   }
 }

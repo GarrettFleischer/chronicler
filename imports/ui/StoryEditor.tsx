@@ -1,5 +1,5 @@
 // Import React dependencies.
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 // Import the Slate editor factory.
 import { createEditor, Node } from 'slate'
 
@@ -15,12 +15,21 @@ const initialState: Node[] = [
 
 export const StoryEditor = (): JSX.Element => {
   const editor = useMemo(() => withReact(createEditor()), [])
-  // Add the initial value when setting up our state.
   const [value, setValue] = useState(initialState)
 
   return (
-    <Slate editor={editor} value={value} onChange={value => setValue(value)}>
-      <Editable />
+    <Slate editor={editor} value={value} onChange={(value): void => setValue(value)}>
+      <Editable
+        onKeyDown={(event): void => {
+          console.log(event.key)
+          if (event.key === '&') {
+            // Prevent the ampersand character from being inserted.
+            event.preventDefault()
+            // Execute the `insertText` method when the event occurs.
+            editor.insertText('and')
+          }
+        }}
+      />
     </Slate>
   )
 }

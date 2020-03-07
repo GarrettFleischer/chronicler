@@ -8,7 +8,7 @@ type Action = {
 
 type State = number
 
-const counterReducer = (state: State, action: Action) : State => {
+const counterReducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'increment':
       return state + action.value
@@ -17,7 +17,7 @@ const counterReducer = (state: State, action: Action) : State => {
   }
 }
 
-const Hello = () => {
+const Hello = (): JSX.Element => {
   const [counter, dispatch] = useReducer(counterReducer, 0)
 
   const increment = () => dispatch({ type: 'increment', value: 1 })

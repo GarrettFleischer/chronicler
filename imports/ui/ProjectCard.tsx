@@ -5,7 +5,7 @@ import { Project } from '../api/project'
 type ProjectCardProps = {
     project: Project
 }
-const ProjectCard = ({ project }: ProjectCardProps) => {
+const ProjectCard = ({ project }: ProjectCardProps): JSX.Element => {
   return (
     <Card>
       <CardActionArea>

@@ -4,8 +4,9 @@ import Info from './Info'
 import { Project } from '../api/project'
 import ProjectCard from './ProjectCard'
 import faker from 'faker'
-import { Paper, GridList, GridListTile } from '@material-ui/core'
+import { Paper, GridList, GridListTile, Card, CardContent, Divider } from '@material-ui/core'
 import { mapx } from '../utilities'
+import { StoryEditor } from './StoryEditor'
 
 // const testProject: Project = {
 //   _id: 'testProject',
@@ -27,7 +28,7 @@ const generateProjects = (howMany: number): Project[] => (
   }), howMany)
 )
 
-const App = () => {
+const App = (): JSX.Element => {
   const projects = generateProjects(10)
   console.log(projects)
 
@@ -36,16 +37,31 @@ const App = () => {
   return (
     <div>
       <Paper>
-        <h1>Welcome to Meteor!</h1>
+        <Card>
+          <CardContent>
+            <StoryEditor/>
+          </CardContent>
+        </Card>
+      </Paper>
+      {/* <Paper>
+        <h1>Welcome to Chronicler!</h1>
         <Hello />
+        <Divider/>
         <Info />
-        <GridList cellHeight={480} cols={3}>
+        <Divider/>
+        <Card>
+          <CardContent>
+            <StoryEditor/>
+          </CardContent>
+        </Card>
+        <Divider/>
+        <GridList cellHeight={400} cols={3}>
           {projects.map((project: Project) =>
             <GridListTile key={project._id}>
               <ProjectCard project={project}/>
             </GridListTile>)}
         </GridList>
-      </Paper>
+      </Paper> */}
     </div>
   )
 }
